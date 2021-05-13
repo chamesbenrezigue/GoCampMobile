@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<component type="Form" layout="LayeredLayout" layeredLayoutPreferredWidthMM="0.0" layeredLayoutPreferredHeightMM="0.0"  autolayout="true" title="FormS" scrollableY="false" name="FormS">
+  <component type="Table" preferredSize="153.1746mm 60.05291mm" focusable="false" enabled="true" rtl="false" name="Table">
+  <custom name="data" type="java.lang.String" array="true" dimensions="2">
+    <arr>
+    </arr>
+    <arr>
+    </arr>
+  </custom>
+  <custom name="header" type="java.lang.String" array="true" dimensions="1">
+    <str>Id</str>
+    <str>Name</str>
+    <str>Description</str>
+    <str>Price</str>
+    <str>Quantity</str>
+    <str>Nbrmatrres</str>
+    <str>Availability</str>
+    <str>Image</str>
+    <str>UpdatedAt</str>
+  </custom>
+    <layoutConstraint insets="9.022556% 5.726257% auto 13.407822%" referenceComponents="-1 -1 -1 -1" referencePositions="0.0 0.0 0.0 0.0" />
+  </component>
+  <component type="Button" text="Rent" name="Button">
+    <layoutConstraint insets="1.8518524mm auto 84.824905% 0.0mm" referenceComponents="0 -1 -1 0 " referencePositions="1.0 0.0 0.0 0.0" />
+  </component>
+</component>
