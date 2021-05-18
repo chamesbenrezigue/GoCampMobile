@@ -15,10 +15,14 @@ import com.codename1.io.NetworkManager;
 import com.codename1.l10n.SimpleDateFormat;
 import com.codename1.ui.List;
 import com.codename1.ui.events.ActionListener;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
+import org.json.JSONObject;
+
 
 /**
  *
@@ -26,6 +30,7 @@ import java.util.Map;
  */
 public class ServiceMaterial {
     public ArrayList<Material> materials;
+    public Material M_One ;
     public static ServiceMaterial instance=null;
     public boolean resultOK;
     private ConnectionRequest req;
@@ -59,28 +64,10 @@ public class ServiceMaterial {
                 m.setNbrmatrres((int)Nbrmatrres);                
                 float quantity = Float.parseFloat(obj.get("quantity").toString());
                 m.setQuantity((int)quantity);                
-                //float id = Float.parseFloat(obj.get("id").toString());
-                //m.setId((int)id)
-              //   m.setNbrmatrres(Integer.parseInt(obj.get("nbrmatrres").toString()));
-               //  m.setQuantity(Integer.parseInt(obj.get("quantity").toString()));
                  m.setAvailability(Boolean.parseBoolean(obj.get("availability").toString()));
-                 
-
-////nbadlou el updated At  String fel base
-//                 String DateConverter = obj.get("updatedAt").toString().substring(obj.get("updatedAt").toString().indexOf("timestamp")+ 10 , obj.get("obj").toString().lastIndexOf("}"));
-//                 Date currentTime = new Date (Double.valueOf(DateConverter).longValue() * 100);
-//                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//                 String dateString = formatter.format(currentTime);
-//                 m.setDate(dateString);
-                 materials.add(m);
-                
-                
+                 materials.add(m);                  
             }
-            
-            
-        } catch (IOException ex) {
-
-        }
+        } catch (IOException ex) {}
         return materials;
      }
      
@@ -99,6 +86,32 @@ public class ServiceMaterial {
         NetworkManager.getInstance().addToQueueAndWait(req);
         return materials;
     }
-
-     
+    
+        public Material getOneMaterialById(String id){
+        String url = Statics.BASE_URL+"/api/RentingMaterial/"+id;
+        req.setUrl(url);
+        req.setPost(false);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                System.out.println(new String(req.getResponseData()));
+                M_One = parseMaterial(new String(req.getResponseData()));
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return M_One;
+    }
+     public Material parseMaterial(String jsonText){
+            JSONParser j = new JSONParser();
+            Material m = new Material();             
+            String str = jsonText;
+            JSONObject jsonObject = new JSONObject(str);
+            System.out.println(jsonObject);
+            GsonBuilder builder = new GsonBuilder();
+            builder.setPrettyPrinting();
+            Gson gson = builder.create();
+            m = gson.fromJson(str,Material.class);
+        return m;
+     }
 }

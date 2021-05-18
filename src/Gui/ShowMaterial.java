@@ -8,6 +8,7 @@ package Gui;
 import Entities.Material;
 import Services.ServiceMaterial;
 import static Utils.Statics.BASE_URL;
+import com.codename1.components.FloatingHint;
 import com.codename1.components.ImageViewer;
 import com.codename1.components.SpanLabel;
 import com.codename1.ui.Button;
@@ -21,6 +22,7 @@ import com.codename1.ui.URLImage;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.plaf.Style;
 import java.util.ArrayList;
 
@@ -35,10 +37,11 @@ public class ShowMaterial extends Form{
     
         
     public ShowMaterial(Form current) {
-        
+
         
                 setTitle("List of materials");
-        
+                      
+
         //SpanLabel sp = new SpanLabel();
         //sp.setText(ServiceMaterial.getInstance().getAllMaterials().toString());
         System.out.println(ServiceMaterial.getInstance().getAllMaterials());
@@ -50,6 +53,8 @@ public class ShowMaterial extends Form{
    Container cnt2 = new Container(BoxLayout.x());
    String idM = String.valueOf(m.getId());
    Button rent = new Button ("Rent",idM);
+   Button show = new Button ("Show",idM);
+
 
         SpanLabel SLnom = new SpanLabel("Name :"+m.getName());
         SpanLabel SLdesc = new SpanLabel("Description :"+m.getDescription());
@@ -64,6 +69,7 @@ public class ShowMaterial extends Form{
                         cnt1.add(SLdesc);
                         cnt1.add(SLpr);
                         cnt1.add(rent);
+                        cnt1.add(show);
                         cnt2.add(cnt1);
 
     
@@ -74,11 +80,22 @@ public class ShowMaterial extends Form{
                new AddReservation(current,rent.getUIID()).show();
             }
     });
+        show.addActionListener(new ActionListener(){
+    @Override
+       public void actionPerformed(ActionEvent evt){
+               new ShowOneMaterial(current,show.getUIID()).show();
+            }
+    });
     
     add(cnt2);
 }
- }
+ 
+      Button ShowReservations = new Button("Show Reservation");
+        ShowReservations.addActionListener(e -> new ListeReservation(current).show());
+        ShowReservations.setUIID("Link");
+        add(ShowReservations);
         //add();
  }
+}
          
    

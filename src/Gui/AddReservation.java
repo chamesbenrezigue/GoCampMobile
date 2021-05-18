@@ -62,22 +62,22 @@ String pattern = "yyyy/MM/dd hh:mm:ss";
 SimpleDateFormat formatter = new SimpleDateFormat(pattern);
 String dateS = formatter.format(dateStart.getDate());
 rm.setDateStart(dateS);
+
 String dateE = formatter.format(dateEnd.getDate());
 rm.setDateEnd(dateE);
+
 rm.setMaterial_id(Integer.valueOf(idM));
 rm.setUser_id(564);
-
-System.out.println(ServiceReservationMaterial.getInstance().addReservation(rm));
  
 
 
-//    if (ServiceReservationMaterial.getInstance().addReservation(ReservationMaterial)==false){
-//               Dialog.show("","Check User_id And Material_id",new Command("OK"));
-              // new AddReservation(current).show();
-//           }else{
-//                //VarGlobales.setusername(username.getText());
-//               new Home(current).show();
-//            }
+    if (ServiceReservationMaterial.getInstance().addReservation(rm)==false){
+               Dialog.show("","Check Date Start and Date end ",new Command("OK"));
+               new AddReservation(current,idM).show();
+           }else{
+                //VarGlobales.setusername(username.getText());
+               new ListeReservation(current).show();
+            }
             }
     });
     addAll(dateStart, dateEnd, Valid);
