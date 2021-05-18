@@ -38,9 +38,7 @@ import com.codename1.ui.util.Resources;
 import services.ServiceUser;
 
 /**
- * Sign in UI
- *
- * @author Shai Almog
+
  */
 public class SignInForm extends BaseForm {
              Form current;
