@@ -86,7 +86,8 @@ public class BaseForm extends Form {
         
         tb.addMaterialCommandToSideMenu("Profile", FontImage.MATERIAL_SETTINGS, e -> new ProfileForm(res).show());
         tb.addMaterialCommandToSideMenu("Logout", FontImage.MATERIAL_EXIT_TO_APP, e -> new SignInForm(res,current).show());
-         tb.addMaterialCommandToSideMenu("Show Material", FontImage.MATERIAL_SHOPPING_BASKET, e -> new ShowMaterial(res,current).show());
+        tb.addMaterialCommandToSideMenu("Sales", FontImage.MATERIAL_SHOPPING_BASKET, e -> new ListeProduits(current,res).show());
+        tb.addMaterialCommandToSideMenu("Show Material", FontImage.MATERIAL_SHOPPING_BASKET, e -> new ShowMaterial(res,current).show());
          tb.addMaterialCommandToSideMenu("Show Reservation Material", FontImage.MATERIAL_LIST, e -> new ListeReservation(res,current).show());
          tb.addMaterialCommandToSideMenu("Show Evenement", FontImage.MATERIAL_EVENT, e -> new ShowEvent(res,current).show());
          tb.addMaterialCommandToSideMenu("Show Reservation Event", FontImage.MATERIAL_EVENT, e -> new showReservation(res,current).show());
