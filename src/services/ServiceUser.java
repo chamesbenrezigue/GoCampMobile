@@ -135,10 +135,10 @@ public class ServiceUser {
                 userCo.setFirstName(UserJson.get("firstName").toString());
                  userCo.setPassword(UserJson.get("password").toString());
                userCo.setEmail(UserJson.get("email").toString());
-               //userCo.setAdress(UserJson.get("adress").toString());
-               //userCo.setSexe(UserJson.get("sexe").toString());
-                // float phone = Float.parseFloat(UserJson.get("phone").toString());
-               // userCo.setPhone((int)phone);
+               userCo.setAdress(UserJson.get("adress").toString());
+               userCo.setSexe(UserJson.get("sexe").toString());
+                 float phone = Float.parseFloat(UserJson.get("phone").toString());
+               userCo.setPhone((int)phone);
 
 
                  return userCo;
@@ -146,6 +146,44 @@ public class ServiceUser {
              }
              return userCo;
   }
+  public Boolean EditProfil(User userEP) {
+        String url = Statics.BASE_URL + "/api/profil_edit?email="+userEP.getEmail()+"&firstName="+userEP.getFirstName()+"&lastName="+userEP.getLastName()+"&sexe="+userEP.getSexe()+"&adress="+userEP.getAdress()+"&phone="+userEP.getPhone()+"&id="+userEP.getId() ;
+        System.out.println(url);
+        req.setUrl(url);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                
+                resultOK = req.getResponseCode() == 200; //Code HTTP 200 OK
+                req.removeResponseListener(this);
+
+               
+            }
+        });
+                NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
+        
+
+    }
+    public Boolean ResetPassword(String password,String NewPassword,String id) {
+        String url = Statics.BASE_URL + "/api/Password_Reset?password="+password+"&NewPassword="+NewPassword+"&id="+id ;
+        System.out.println(url);
+        req.setUrl(url);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                
+                resultOK = req.getResponseCode() == 200; //Code HTTP 200 OK
+                req.removeResponseListener(this);
+
+               
+            }
+        });
+                NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
+        
+
+    }
 
 }
 

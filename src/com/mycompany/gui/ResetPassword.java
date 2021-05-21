@@ -49,9 +49,9 @@ import services.ServiceUser;
  *
  * @author Shai Almog
  */
-public class ProfileForm extends BaseForm {
+public class ResetPassword extends BaseForm {
 
-    public ProfileForm(Resources res) {
+    public ResetPassword(Resources res) {
         super("Newsfeed", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
@@ -85,66 +85,45 @@ public class ProfileForm extends BaseForm {
                     )
                 )
         ));
-        System.out.println(Userconnected);
 
-        TextField FirstName = new TextField(Userconnected.getFirstName());
-        FirstName.setUIID("TextFieldBlack");
-        addStringValue("First Name", FirstName);
+        TextField OldPassword = new TextField();
+        OldPassword.setUIID("TextFieldBlack");
+        addStringValue("Old password", OldPassword);
         
-        TextField LastName = new TextField(Userconnected.getLastName());
-        LastName.setUIID("TextFieldBlack");
-        addStringValue("Last Name", LastName);
+        TextField NewPassword = new TextField();
+        NewPassword.setUIID("TextFieldBlack");
+        addStringValue("NewPassword", NewPassword);
 
-        TextField email = new TextField(Userconnected.getEmail(), "E-Mail", 20, TextField.EMAILADDR);
-        email.setUIID("TextFieldBlack");
-        addStringValue("E-Mail", email);        
-
-
+               
         
-        TextField Adress = new TextField(Userconnected.getAdress());
-        Adress.setUIID("TextFieldBlack");
-        addStringValue("Adress", Adress);
+        TextField ConfirmPassword = new TextField();
+        ConfirmPassword.setUIID("TextFieldBlack");
+        addStringValue("Confirm Password", ConfirmPassword);
         
-        TextField Sexe = new TextField(Userconnected.getSexe());
-        Sexe.setUIID("TextFieldBlack");
-        addStringValue("Sexe", Sexe);
-        
-         TextField Phone= new TextField(String.valueOf(Userconnected.getPhone()));
-        Phone.setUIID("TextFieldBlack");
-        addStringValue("Phone", Phone);
-        
-         Button Valid = new Button ("Valider");
-  
-     Button btnVal = new Button ("valider");
+ Button btnVal = new Button ("valider");
        btnVal.addActionListener(new ActionListener(){
              @Override
              public void actionPerformed(ActionEvent evt) {
-                   User u =new User();
-       u.setId(Userconnected.getId());
-        u.setEmail(email.getText());
-        u.setPhone(Integer.valueOf(Phone.getText()));
-        u.setFirstName(FirstName.getText());
-        u.setLastName(LastName.getText());
-        u.setSexe(Sexe.getText());
-        u.setAdress(Adress.getText());
-        if(ServiceUser.getInstance().EditProfil(u)==false){
+if(NewPassword.getText().equals(ConfirmPassword.getText())){
+                if(ServiceUser.getInstance().ResetPassword(OldPassword.getText(),NewPassword.getText() ,String.valueOf(Userconnected.getId()))==false){
              Dialog.show("","Error",new Command("OK"));
         }else{
-    Userconnected.setEmail(email.getText());
-        Userconnected.setPhone(Integer.valueOf(Phone.getText()));
-        Userconnected.setFirstName(FirstName.getText());
-        Userconnected.setLastName(LastName.getText());
-        Userconnected.setSexe(Sexe.getText());
-                           Userconnected.setAdress(Adress.getText());
+
 
                  Dialog.show("update valider","Succees",new Command("OK"));
-                 new ProfileForm(res).show();
-        }
+                 new ResetPassword(res).show();
+        }   
+}
+else{
+                 Dialog.show("","check your new password",new Command("OK"));
+
+}
+
            
              }
        });
-     
-add(btnVal);
+       add(btnVal);
+
  
     }
     
